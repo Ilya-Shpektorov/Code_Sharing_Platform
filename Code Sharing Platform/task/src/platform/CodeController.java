@@ -40,7 +40,7 @@ public class CodeController {
     public String addNewCodeApi(@RequestBody Map<String, String> code) {
         Code newCode = new Code(code.get("code"), LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         codeList.add(newCode);
-        return String.format("{\"id\":\"%n\"}", newCode.getId());
+        return String.format("{\"id\":\"%s\"}", newCode.getId());
     }
 
     @GetMapping(path = "/code/new")
@@ -54,5 +54,16 @@ public class CodeController {
     public List<Code> getLastTenCodesApi(HttpServletResponse response) {
         response.addHeader("Content-Type", "application/json");
         return getLastTen();
+    }
+
+    @GetMapping(path = "/code/latest")
+    public String getHtmlLatestCode(HttpServletResponse response) {
+        response.addHeader("Content-Type", "text/html");
+        List<Code> lastCode = getLastTen();
+        StringBuilder codeBlock = new StringBuilder();
+        for (Code code : lastCode) {
+            codeBlock.append(HtmlPages.getFormHtmlForLatestCode(code));
+        }
+        return HtmlPages.getLatestCodeHtml(codeBlock.toString());
     }
 }

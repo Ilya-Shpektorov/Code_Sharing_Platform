@@ -15,13 +15,31 @@ public class HtmlPages {
                 "              }</style>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "<span id = \"load_date\"> %s </span>\n" +
-                "    <div class = \"code_element\">\n" +
-                "    <pre id = \"code_snippet\">\n" +
+                "   <span id = \"load_date\"> %s </span>\n" +
+                "   <div class = \"code_element\">\n" +
+                "   <pre id = \"code_snippet\">\n" +
                 "%s</pre>\n" +
                 "</div>\n" +
                 "</body>\n" +
                 "</html>", code.getDate(), code.getCode());
+    }
+
+    public static String getLatestCodeHtml(String code) {
+        return String.format("<html>\n" +
+                "<head>\n" +
+                "    <title>Latest</title>\n" +
+                "    <style>.code_element {\n" +
+                "          background-color: lightgrey;\n" +
+                "          width: fit-content;\n" +
+                "          border: 1px solid;\n" +
+                "          margin-top: 10px;\n" +
+                "          padding: 10px;\n" +
+                "              }</style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "%s\n" +
+                "</body>\n" +
+                "</html>", code);
     }
 
     public static String getAddNewCodeHtml() {
@@ -68,5 +86,14 @@ public class HtmlPages {
                 "</div>\n" +
                 "</body>\n" +
                 "</html>";
+    }
+
+    public static String getFormHtmlForLatestCode(Code code) {
+        return String.format(
+                "   <span id = \"load_date\"> %s </span>\n" +
+                "   <div class = \"code_element\">\n" +
+                "   <pre id = \"code_snippet\">\n" +
+                "%s</pre>\n" +
+                "</div>", code.getDate(), code.getCode());
     }
 }
